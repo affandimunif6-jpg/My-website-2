@@ -1,0 +1,1539 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050b17">
+<title>NEON PORTAL | Gaming Universe</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #050b17;
+  --panel: #0c192b;
+  --panel2: #10243b;
+  --cyan: #00e5ff;
+  --blue: #087cff;
+  --text: #edf7ff;
+  --muted: #8ba6c1;
+  --border: rgba(0,195,255,.2);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== NAVIGATION ===== */
+
+nav {
+  height: 70px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(5,11,23,.91);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  color: var(--cyan);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-shadow: 0 0 18px #00cfff77;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #b6cce0;
+  font-size: 13px;
+  transition: .2s;
+}
+
+.nav-links a:hover {
+  color: var(--cyan);
+}
+
+/* ===== HERO ===== */
+	
+/* ===== DYNAMIC BACKGROUND ===== */
+
+.background-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+
+  pointer-events: none;
+}
+
+.background-layer.active {
+  opacity: 1;
+}
+
+
+
+.hero {
+  min-height: 610px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5,11,23,.95) 0%,
+      rgba(5,11,23,.65) 55%,
+      rgba(5,11,23,.25) 100%
+    ),
+    url("./assets/background-1-mobile.jpg") center/cover no-repeat;
+}
+
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#1683c00c 1px,transparent 1px),
+    linear-gradient(90deg,#1683c00c 1px,transparent 1px);
+  background-size: 45px 45px;
+  mask-image: linear-gradient(to bottom,black,transparent);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border: 1px solid #00bfff22;
+  border-radius: 50%;
+  right: -120px;
+  top: 60px;
+  box-shadow:
+    0 0 80px #008cff13,
+    inset 0 0 80px #008cff13;
+  pointer-events: none;
+}
+
+#scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  touch-action: pan-y;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 75px 8%;
+  max-width: 700px;
+  pointer-events: none;
+}
+
+.eyebrow {
+  color: var(--cyan);
+  letter-spacing: 4px;
+  font-size: 11px;
+  margin-bottom: 23px;
+}
+
+.hero h1 {
+  font-size: clamp(43px,8vw,82px);
+  line-height: 1.02;
+  letter-spacing: -2px;
+  margin-bottom: 22px;
+}
+
+.hero h1 span {
+  color: var(--cyan);
+  text-shadow: 0 0 30px #00bfff55;
+}
+
+.hero-content p {
+  color: #a4bad0;
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 450px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  pointer-events: auto;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  transition: .25s;
+}
+
+.btn-primary {
+  background: var(--cyan);
+  color: #00121e;
+  box-shadow: 0 0 22px #00dfff35;
+}
+
+.btn-secondary {
+  background: #12243b;
+  border: 1px solid #23618a;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px #00bfff44;
+}
+
+.hero-note {
+  margin-top: 25px;
+  color: #6d91b1;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+/* ===== GENERAL SECTIONS ===== */
+
+section {
+  padding: 70px 7%;
+  position: relative;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 28px;
+}
+
+.section-title {
+  font-size: 27px;
+  letter-spacing: .5px;
+}
+
+.section-desc {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 9px;
+}
+
+.small-label {
+  color: var(--cyan);
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+/* ===== FEATURED GAME ===== */
+
+.featured {
+  background:
+    radial-gradient(ellipse at 85% 50%,#07558b55,transparent 55%),
+    #091426;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.featured-box {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 270px;
+  border: 1px solid #1b5274;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0b1b30;
+  box-shadow: 0 15px 50px #0005;
+}
+
+.featured-art {
+  min-height: 270px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%,#0574b8aa,transparent 55%),
+    linear-gradient(140deg,#0a3155,#07101f);
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-art::before {
+  content: "";
+  width: 190px;
+  height: 190px;
+  border: 1px solid #00e5ff88;
+  border-radius: 50%;
+  box-shadow:
+    0 0 30px #00bfff33,
+    inset 0 0 30px #00bfff33;
+  animation: orbit 12s linear infinite;
+}
+
+.featured-art span {
+  position: absolute;
+  font-size: 90px;
+  filter: drop-shadow(0 0 20px #00dfff99);
+}
+
+.featured-info {
+  padding: 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-info h3 {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.featured-info p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+.featured-info .btn {
+  margin-top: 22px;
+  align-self: flex-start;
+}
+
+/* ===== GAME LIBRARY ===== */
+
+.library {
+  background:
+    radial-gradient(ellipse at 0% 0%,#063d631f,transparent 40%),
+    var(--bg);
+}
+
+.library-tools {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.library-tools input,
+.library-tools select {
+  background: #0e2035;
+  border: 1px solid #21435e;
+  color: white;
+  border-radius: 6px;
+  padding: 14px;
+  outline: none;
+}
+
+.library-tools input {
+  flex: 1;
+  min-width: 0;
+}
+
+.library-tools input:focus,
+.library-tools select:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px #00dfff22;
+}
+
+.library-tools input::placeholder {
+  color: #718ba5;
+}
+
+/* Category buttons */
+
+.categories {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  scrollbar-width: thin;
+}
+
+.cat-btn {
+  flex-shrink: 0;
+  background: #0e2035;
+  border: 1px solid #25435c;
+  color: #a8bfd3;
+  border-radius: 30px;
+  padding: 10px 17px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.cat-btn.active,
+.cat-btn:hover {
+  background: #063c56;
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.game-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 19px;
+}
+
+.game-card {
+  background: linear-gradient(145deg,#10233a,#091524);
+  border: 1px solid #1a3a55;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform .25s,border-color .25s,box-shadow .25s;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  border-color: #00bfff;
+  box-shadow: 0 12px 30px #008cff20;
+}
+
+.cover {
+  height: 155px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center,#07578b,#071426);
+}
+
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(130deg,transparent 40%,#00dfff14 50%,transparent 60%);
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.cover-icon {
+  font-size: 65px;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 0 15px #00cfff88);
+}
+
+.game-info {
+  padding: 17px;
+}
+
+.game-info h3 {
+  font-size: 17px;
+}
+
+.game-info p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 10px 0;
+  min-height: 40px;
+}
+
+.tag {
+  color: var(--cyan);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.play-button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px;
+  border: 1px solid #00bfff;
+  border-radius: 5px;
+  background: #00dfff;
+  color: #00121e;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.play-button:hover {
+  background: white;
+  box-shadow: 0 0 20px #00cfff66;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 35px;
+  grid-column: 1/-1;
+}
+
+/* ===== GAME PLAYER ===== */
+
+.player {
+  display: none;
+  margin-top: 40px;
+  padding: 15px;
+  border: 1px solid #12658c;
+  background: #071321;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #008cff12;
+}
+
+.player.active {
+  display: block;
+  animation: fadeUp .35s ease;
+}
+
+.player-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.player-top h3 {
+  font-size: 17px;
+}
+
+.player-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.player-controls button {
+  padding: 10px 13px;
+  border: 1px solid #20567a;
+  border-radius: 5px;
+  background: #102b46;
+  color: white;
+  cursor: pointer;
+}
+
+.player-controls .exit {
+  background: #a51e43;
+  border-color: #e43a61;
+}
+
+.game-frame {
+  display: block;
+  width: 100%;
+  height: min(65vh,600px);
+  min-height: 300px;
+  border: 1px solid #1b5274;
+  border-radius: 5px;
+  background: black;
+}
+
+/* ===== NEWS ===== */
+
+.news {
+  background: #091426;
+  border-top: 1px solid var(--border);
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 17px;
+}
+
+.news-card {
+  background: #102039;
+  padding: 23px;
+  border: 1px solid #1d3b58;
+  border-radius: 8px;
+  transition: .2s;
+}
+
+.news-card:hover {
+  border-color: var(--cyan);
+  transform: translateY(-3px);
+}
+
+.news-icon {
+  font-size: 27px;
+  margin-bottom: 17px;
+}
+
+.news-card h3 {
+  font-size: 16px;
+}
+
+.news-card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+  padding: 35px 7%;
+  background: #030811;
+  border-top: 1px solid #12334c;
+  text-align: center;
+}
+
+.footer-logo {
+  color: var(--cyan);
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+footer p {
+  color: #6e89a4;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:650px) {
+  nav {
+    padding: 0 4%;
+    height: 62px;
+  }
+
+  .logo {
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+
+  .nav-links {
+    gap: 11px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+
+  .hero {
+    min-height: 540px;
+  }
+
+  .hero-content {
+    padding: 55px 6%;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+  }
+
+  section {
+    padding: 48px 5%;
+  }
+
+  .featured-box {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-art {
+    min-height: 190px;
+  }
+
+  .featured-info {
+    padding: 25px;
+  }
+
+  .featured-info h3 {
+    font-size: 25px;
+  }
+
+  .library-tools {
+    flex-direction: column;
+  }
+
+  .library-tools select {
+    width: 100%;
+  }
+
+  .game-list {
+    grid-template-columns: 1fr;
+  }
+
+  .cover {
+    height: 180px;
+  }
+
+  .player-top {
+    align-items: flex-start;
+  }
+
+  .player-top h3 {
+    font-size: 14px;
+  }
+
+  .player-controls button {
+    padding: 9px;
+    font-size: 11px;
+  }
+
+  .game-frame {
+    height: 55vh;
+    min-height: 280px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+  <a href="#home" class="logo">NEON PORTAL</a>
+
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#featured">Featured</a>
+    <a href="#games">Games</a>
+    <a href="#news">News</a>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero" id="home">
+
+  <!-- DYNAMIC BACKGROUND -->
+  <div class="background-layer bg-one"></div>
+	<img
+  src="./assets/backgrounds/background-1-mobile.jpg"
+  style="
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:150px;
+    z-index:99;
+    border:3px solid cyan;
+  "
+>
+  <div class="background-layer bg-two"></div>
+
+  <canvas id="scene"></canvas>
+  <div class="hero-content">
+    <div class="eyebrow">✦ THE NEXT GAMING GENERATION</div>
+
+    <h1>
+      ENTER THE<br>
+      <span>UNKNOWN.</span>
+    </h1>
+
+    <p>
+      Discover new worlds, explore unique adventures,
+      and experience games created for the next generation.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#games" class="btn btn-primary">
+        EXPLORE GAMES ↗
+      </a>
+
+      <a href="#featured" class="btn btn-secondary">
+        DISCOVER MORE
+      </a>
+    </div>
+
+    <div class="hero-note">
+      ● NEON PORTAL GAMING UNIVERSE
+    </div>
+  </div>
+</header>
+
+
+<!-- FEATURED GAME -->
+
+<section class="featured" id="featured">
+
+  <div class="small-label">EDITOR'S PICK</div>
+
+  <div class="featured-box">
+
+    <div class="featured-art">
+      <span>⚡</span>
+    </div>
+
+    <div class="featured-info">
+
+      <div class="small-label">FEATURED GAME</div>
+
+      <h3 id="featuredName">Neon Dodge</h3>
+
+      <p id="featuredDescription">
+        Test your reflexes, avoid incoming obstacles,
+        and survive as long as possible.
+      </p>
+
+      <button class="btn btn-primary" onclick="playFeatured()">
+        ▶ PLAY FEATURED
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- GAME LIBRARY -->
+
+<section class="library" id="games">
+
+  <div class="section-heading">
+    <div>
+      <div class="small-label">DISCOVER YOUR NEXT GAME</div>
+      <h2 class="section-title">GAME LIBRARY</h2>
+      <p class="section-desc">
+        Your next adventure starts here.
+      </p>
+    </div>
+  </div>
+
+  <div class="library-tools">
+
+    <input
+      id="search"
+      type="search"
+      placeholder="🔍 Search games..."
+    >
+
+    <select id="category">
+      <option value="all">All Categories</option>
+      <option value="action">Action</option>
+      <option value="racing">Racing</option>
+      <option value="adventure">Adventure</option>
+      <option value="puzzle">Puzzle</option>
+    </select>
+
+  </div>
+
+  <div class="categories">
+    <button class="cat-btn active" data-category="all">ALL GAMES</button>
+    <button class="cat-btn" data-category="action">ACTION</button>
+    <button class="cat-btn" data-category="racing">RACING</button>
+    <button class="cat-btn" data-category="adventure">ADVENTURE</button>
+    <button class="cat-btn" data-category="puzzle">PUZZLE</button>
+  </div>
+
+  <div class="section-desc" id="gameCount"></div>
+
+  <div class="game-list" id="gameList"></div>
+
+
+  <!-- GAME PLAYER -->
+
+  <div class="player" id="player">
+
+    <div class="player-top">
+
+      <h3 id="playingTitle">NOW PLAYING</h3>
+
+      <div class="player-controls">
+
+        <button onclick="fullscreenGame()">
+          ⛶ FULL
+        </button>
+
+        <button class="exit" onclick="exitGame()">
+          ✕ EXIT
+        </button>
+
+      </div>
+
+    </div>
+
+    <iframe
+      class="game-frame"
+      id="gameFrame"
+      title="Neon Portal Game"
+      allow="fullscreen; gamepad"
+      allowfullscreen
+      sandbox="allow-scripts allow-same-origin allow-pointer-lock">
+    </iframe>
+
+  </div>
+
+</section>
+
+
+<!-- NEWS -->
+
+<section class="news" id="news">
+
+  <div class="small-label">LATEST UPDATES</div>
+
+  <h2 class="section-title">GAMING NEWS</h2>
+
+  <p class="section-desc">
+    What's happening in the Neon Portal universe?
+  </p>
+
+  <div class="news-grid">
+
+    <article class="news-card">
+      <div class="news-icon">🚀</div>
+      <h3>Welcome to Neon Portal</h3>
+      <p>
+        Explore our new gaming universe
+        and discover original games.
+      </p>
+    </article>
+
+    <article class="news-card">
+      <div class="news-icon">🎮</div>
+      <h3>More Games Coming</h3>
+      <p>
+        New original games and adventures
+        are coming to our library.
+      </p>
+    </article>
+
+    <article class="news-card">
+      <div class="news-icon">⚡</div>
+      <h3>Portal Evolution</h3>
+      <p>
+        We continue improving the
+        Neon Portal experience.
+      </p>
+    </article>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-logo">NEON PORTAL</div>
+  <p>YOUR GATEWAY TO THE GAMING UNIVERSE.</p>
+  <p>© 2026 NEON PORTAL. ALL RIGHTS RESERVED.</p>
+</footer>
+
+
+<!-- LOCAL THREE.JS -->
+
+<script src="./libs/three.min.js"></script>
+
+<script>
+
+// =====================================
+// 3D BACKGROUND ENGINE
+// =====================================
+
+(function(){
+
+  if(!window.THREE){
+    console.error("Three.js tidak ditemukan.");
+    return;
+  }
+
+  const canvas=document.getElementById("scene");
+
+  const scene=new THREE.Scene();
+
+  const camera=new THREE.PerspectiveCamera(
+    55,1,.1,100
+  );
+
+  camera.position.z=8;
+
+  const renderer=new THREE.WebGLRenderer({
+    canvas:canvas,
+    alpha:true,
+    antialias:false
+  });
+
+  renderer.setPixelRatio(
+    Math.min(window.devicePixelRatio,1.5)
+  );
+
+  // Main 3D object
+
+  const object=new THREE.Mesh(
+    new THREE.TorusKnotGeometry(1.35,.32,90,10),
+    new THREE.MeshStandardMaterial({
+      color:0x00bfff,
+      metalness:.85,
+      roughness:.22
+    })
+  );
+
+  scene.add(object);
+
+  // Outer holographic structure
+
+  const shell=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(2.5,1),
+    new THREE.MeshBasicMaterial({
+      color:0x008cff,
+      wireframe:true,
+      transparent:true,
+      opacity:.17
+    })
+  );
+
+  scene.add(shell);
+
+  // Lighting
+
+  scene.add(
+    new THREE.AmbientLight(0xffffff,.8)
+  );
+
+  const light=new THREE.PointLight(
+    0x00cfff,2.5,30
+  );
+
+  light.position.set(3,4,5);
+  scene.add(light);
+
+  // Stars
+
+  const positions=[];
+
+  for(let i=0;i<350;i++){
+    positions.push(
+      (Math.random()-.5)*25,
+      (Math.random()-.5)*16,
+      (Math.random()-.5)*15
+    );
+  }
+
+  const geometry=new THREE.BufferGeometry();
+
+  geometry.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(positions,3)
+  );
+
+  const stars=new THREE.Points(
+    geometry,
+    new THREE.PointsMaterial({
+      color:0x65caff,
+      size:.035
+    })
+  );
+
+  scene.add(stars);
+
+  // Automatic and manual camera rotation
+
+  let targetX=0;
+  let targetY=0;
+  let angleX=0;
+  let angleY=0;
+
+  let dragging=false;
+  let lastX=0;
+  let lastY=0;
+
+  canvas.addEventListener("pointerdown",e=>{
+    dragging=true;
+    lastX=e.clientX;
+    lastY=e.clientY;
+    canvas.setPointerCapture(e.pointerId);
+  });
+
+  canvas.addEventListener("pointermove",e=>{
+    if(!dragging)return;
+
+    targetY+=(e.clientX-lastX)*.006;
+    targetX+=(e.clientY-lastY)*.006;
+
+    targetX=Math.max(-1,Math.min(1,targetX));
+
+    lastX=e.clientX;
+    lastY=e.clientY;
+  });
+
+  function stopDrag(){
+    dragging=false;
+  }
+
+  canvas.addEventListener("pointerup",stopDrag);
+  canvas.addEventListener("pointercancel",stopDrag);
+
+  function resize(){
+
+    const w=canvas.clientWidth;
+    const h=canvas.clientHeight;
+
+    if(!w||!h)return;
+
+    camera.aspect=w/h;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(w,h,false);
+  }
+
+  window.addEventListener("resize",resize);
+  resize();
+
+  let previous=0;
+
+  function animate(time){
+
+    requestAnimationFrame(animate);
+
+    // Approximately 60 FPS rendering limit
+
+    if(time-previous<16)return;
+    previous=time;
+
+    if(!dragging){
+      targetY+=.0015;
+    }
+
+    angleX+=(targetX-angleX)*.06;
+    angleY+=(targetY-angleY)*.06;
+
+    object.rotation.x=angleX;
+    object.rotation.y=angleY;
+
+    shell.rotation.x=-angleX*.5;
+    shell.rotation.y=angleY*.5;
+
+    stars.rotation.y+=.00015;
+
+    renderer.render(scene,camera);
+  }
+
+  requestAnimationFrame(animate);
+
+})();
+
+
+// =====================================
+// GAME DATABASE
+// =====================================
+
+const gameDatabase=[
+	{
+	id: "fajar-merah",
+	name: "Fajar Merah FPS",
+	category: "action",
+	icon: "🇩🇪",
+	description: "the game FPS battle royale and team deatcmacth",
+	file: "./games/fajar-merah/index.html"
+	},
+	{
+  id: "gunship-rush",
+  name: "Gunship Rush",
+  category: "action",
+  icon: "🚁",
+  description: "Modern military flight game.",
+  file: "./games/gunship-rush/index.html"
+},
+
+  {
+    id:"neon-dodge",
+    name:"Neon Dodge",
+    category:"action",
+    icon:"⚡",
+    description:"Avoid obstacles and survive in a neon arena.",
+    file:"./games/neon-dodge/index.html",
+    featured:true
+  }
+
+];
+
+
+// =====================================
+// GAME LIBRARY
+// =====================================
+
+const gameList=document.getElementById("gameList");
+const search=document.getElementById("search");
+const category=document.getElementById("category");
+const player=document.getElementById("player");
+const gameFrame=document.getElementById("gameFrame");
+
+let activeCategory="all";
+
+function renderGames(){
+
+  const query=search.value.toLowerCase();
+  const selected=category.value;
+
+  const filtered=gameDatabase.filter(game=>{
+
+    const matchesName=
+      game.name.toLowerCase().includes(query);
+
+    const matchesCategory=
+      activeCategory==="all"||
+      game.category===activeCategory;
+
+    const matchesSelect=
+      selected==="all"||
+      game.category===selected;
+
+    return matchesName&&matchesCategory&&matchesSelect;
+  });
+
+  gameList.innerHTML="";
+
+  document.getElementById("gameCount").textContent=
+    filtered.length+" GAME(S) FOUND";
+
+  if(filtered.length===0){
+
+    gameList.innerHTML=
+      '<div class="empty">No games found. Try another search.</div>';
+
+    return;
+  }
+
+  filtered.forEach(game=>{
+
+    const card=document.createElement("article");
+    card.className="game-card";
+
+    const cover=document.createElement("div");
+    cover.className="cover";
+
+    const icon=document.createElement("span");
+    icon.className="cover-icon";
+    icon.textContent=game.icon;
+
+    cover.appendChild(icon);
+
+    if(game.image){
+
+      const img=document.createElement("img");
+      img.src=game.image;
+      img.alt=game.name;
+
+      img.onerror=()=>img.remove();
+
+      cover.appendChild(img);
+    }
+
+    const info=document.createElement("div");
+    info.className="game-info";
+
+    const title=document.createElement("h3");
+    title.textContent=game.name;
+
+    const desc=document.createElement("p");
+    desc.textContent=game.description;
+
+    const tag=document.createElement("div");
+    tag.className="tag";
+    tag.textContent=game.category.toUpperCase();
+
+    const button=document.createElement("button");
+    button.className="play-button";
+    button.textContent="▶ PLAY";
+
+    button.onclick=()=>playGame(game.id);
+
+    info.append(title,desc,tag,button);
+    card.append(cover,info);
+
+    gameList.appendChild(card);
+
+  });
+
+}
+
+
+// =====================================
+// CATEGORY FILTER
+// =====================================
+
+document.querySelectorAll(".cat-btn").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    document.querySelectorAll(".cat-btn").forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    activeCategory=button.dataset.category;
+
+    category.value="all";
+
+    renderGames();
+
+  });
+
+});
+
+search.addEventListener("input",renderGames);
+
+category.addEventListener("change",()=>{
+
+  activeCategory="all";
+
+  document.querySelectorAll(".cat-btn").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.category==="all"
+    );
+  });
+
+  renderGames();
+
+});
+
+
+// =====================================
+// GAME PLAYER
+// =====================================
+
+function playGame(id){
+
+  const game=gameDatabase.find(g=>g.id===id);
+
+  if(!game)return;
+
+  document.getElementById("playingTitle").textContent=
+    "NOW PLAYING: "+game.name;
+
+  gameFrame.src=game.file;
+
+  player.classList.add("active");
+
+  player.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+}
+
+function playFeatured(){
+
+  const game=gameDatabase.find(g=>g.featured);
+
+  if(game)playGame(game.id);
+
+}
+
+function exitGame(){
+
+  gameFrame.src="about:blank";
+
+  player.classList.remove("active");
+
+}
+
+function fullscreenGame(){
+
+  if(gameFrame.requestFullscreen){
+    gameFrame.requestFullscreen();
+  }
+
+}
+	
+
+
+
+// ========================================
+// NEON PORTAL V3
+// RESPONSIVE DYNAMIC BACKGROUND
+// ========================================
+
+const backgrounds = [
+  {
+    pc: "./assets/backgrounds/background-1-pc.jpg",
+    mobile: "./assets/backgrounds/background-1-mobile.jpg"
+  },
+  {
+    pc: "./assets/backgrounds/background-2-pc.jpg",
+    mobile: "./assets/backgrounds/background-2-mobile.jpg"
+  },
+  {
+    pc: "./assets/backgrounds/background-3-pc.jpg",
+    mobile: "./assets/backgrounds/background-3-mobile.jpg"
+  }
+];
+
+const layers = [
+  document.querySelector(".bg-one"),
+  document.querySelector(".bg-two")
+];
+
+let currentBackground = 0;
+let activeLayer = 0;
+let changing = false;
+
+const mobileScreen = window.matchMedia(
+  "(max-width: 650px)"
+);
+
+function getImage(index) {
+  return mobileScreen.matches
+    ? backgrounds[index].mobile
+    : backgrounds[index].pc;
+}
+
+// LOAD IMAGE
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = () => resolve(src);
+    img.onerror = () => reject(src);
+
+    img.src = src;
+  });
+}
+
+// CHANGE BACKGROUND
+
+async function changeBackground(index) {
+
+  if (changing) return;
+
+  changing = true;
+
+  const nextLayer = 1 - activeLayer;
+  const imagePath = getImage(index);
+
+  try {
+
+    await loadImage(imagePath);
+
+    layers[nextLayer].style.backgroundImage =
+      `url("${imagePath}")`;
+
+    layers[nextLayer].classList.add("active");
+
+    layers[activeLayer].classList.remove("active");
+
+    activeLayer = nextLayer;
+    currentBackground = index;
+
+    console.log("Background loaded:", imagePath);
+
+  } catch (error) {
+
+    console.error(
+      "BACKGROUND ERROR: File tidak ditemukan!",
+      error
+    );
+
+  }
+
+  changing = false;
+}
+
+// INITIAL BACKGROUND
+
+changeBackground(0);
+
+// AUTOMATIC TRANSITION
+
+setInterval(() => {
+
+  const next =
+    (currentBackground + 1) % backgrounds.length;
+
+  changeBackground(next);
+
+}, 7000);
+
+// RESPONSIVE SCREEN DETECTION
+
+mobileScreen.addEventListener("change", () => {
+
+  changeBackground(currentBackground);
+
+});
+
+
+
+// =====================================
+// INITIALIZE
+// =====================================
+
+renderGames();
+
+
+
+// =====================================
+// INITIALIZE
+// =====================================
+
+renderGames();
+
+</script>
+
+</body>
+</html>
